@@ -1,0 +1,2 @@
+method,api_path,data,expected_success
+GET,/api/v1/customers/watch-lists,,"True"

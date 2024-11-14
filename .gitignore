@@ -1,3 +1,4 @@
 # .gitignore
+# 先加入配置 再新建
 .env
 run_test.py
