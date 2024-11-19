@@ -2,3 +2,4 @@
 # 先加入配置 再新建
 run_test.py
 config.yml
+/logs/

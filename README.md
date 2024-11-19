@@ -34,6 +34,9 @@ MiTestPlatform：Django测试平台
     ```  
 
 ## 配置
-1. 配置文件在根目录的config.yml文件
-2. 可以使用config.yml.bak参考配置
+1. 配置文件在根目录的config.yml文件，可以使用config.yml.bak参考配置，执行不同环境命令参考
+    ```bash
+   ENV=production python run_test.py
+   ```
+
 3. 用例放在cases/test_cases.csv里面

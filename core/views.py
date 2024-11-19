@@ -1,8 +1,8 @@
 # core/views.py
 from django.shortcuts import render
 import requests
-from core.config_loader import EMAIL, PASSWORD
-from .login import login
+from core.config.config_loader import EMAIL, PASSWORD
+from core.logic.login import login
 
 def example_view(request):
     # 调用 login.py 中的 login 函数

@@ -1,6 +1,7 @@
-# core/login.py
+# core/logic/login.py
 import requests
-from core.config_loader import BASE_URL, EMAIL, PASSWORD
+import logging
+from core.config.config_loader import BASE_URL, EMAIL, PASSWORD
 
 def login(email=EMAIL, password=PASSWORD):
     api_path = "/api/v1/customers/signin"
@@ -50,11 +51,14 @@ def login(email=EMAIL, password=PASSWORD):
     }
 
     try:
+        logging.info(f"Attempting login for user: {email}")
         response = requests.post(url, headers=headers, data=data)
         response.raise_for_status()
 
         # 提取响应头中的 remember-me-token
         remember_me_token = response.headers.get('remember-me-token', 'Token not found')
+        logging.info("Login successful, remember-me-token retrieved.")
         return remember_me_token
     except requests.exceptions.RequestException as e:
+        logging.error(f"Login failed for user: {email} with error: {str(e)}")
         return {"error": str(e)}
