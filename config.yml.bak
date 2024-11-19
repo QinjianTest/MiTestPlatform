@@ -1,0 +1,10 @@
+# config.yml
+environments:
+  development:
+    BASE_URL:
+    EMAIL:
+    PASSWORD:
+  production:
+    BASE_URL:
+    EMAIL:
+    PASSWORD:

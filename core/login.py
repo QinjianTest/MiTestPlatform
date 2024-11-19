@@ -1,15 +1,10 @@
 # core/login.py
 import requests
-from dotenv import load_dotenv
-import os
+from core.config_loader import BASE_URL, EMAIL, PASSWORD
 
-# 加载 .env 文件中的环境变量
-load_dotenv()
-
-def login(email, password):
-    base_url = os.getenv('BASE_URL')
+def login(email=EMAIL, password=PASSWORD):
     api_path = "/api/v1/customers/signin"
-    url = base_url + api_path
+    url = BASE_URL + api_path
 
     # 请求头
     headers = {
@@ -24,9 +19,9 @@ def login(email, password):
         'Eagleeye-Sessionid': 'g5m453ns8nyiO4w8Xt4zeCpys4sy',
         'Eagleeye-Traceid': '1417742317310574596301017ee099',
         'Locale': 'zh-TW',
-        'Origin': base_url,
+        'Origin': BASE_URL,
         'Priority': 'u=1, i',
-        'Referer': base_url,
+        'Referer': BASE_URL,
         'Remember-Me-Token': '',
         'Sec-CH-UA': '"Chromium";v="130", "Google Chrome";v="130", "Not?A_Brand";v="99"',
         'Sec-CH-UA-Mobile': '?0',

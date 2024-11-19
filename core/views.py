@@ -1,19 +1,12 @@
 # core/views.py
 from django.shortcuts import render
 import requests
-from dotenv import load_dotenv
-import os
+from core.config_loader import EMAIL, PASSWORD
 from .login import login
 
-# 加载 .env 文件中的环境变量
-load_dotenv()
-
 def example_view(request):
-    email = os.getenv('EMAIL')
-    password = os.getenv('PASSWORD')
-
     # 调用 login.py 中的 login 函数
-    response = login(email, password)
+    response = login(EMAIL, PASSWORD)
 
     # 初始化断言结果和响应数据
     assertion_result = "Assertion not performed."
@@ -45,13 +38,10 @@ def example_view(request):
 
 
 def get_token(request):
-    email = os.getenv('EMAIL')
-    password = os.getenv('PASSWORD')
-
     # 调用 login.py 中的 login 函数
-    remember_me_token = login(email, password)
+    remember_me_token = login(EMAIL, PASSWORD)
 
-   # 将数据传递给模板
+    # 将数据传递给模板
     return render(request, 'core/example.html', {
         'remember_me_token': remember_me_token
     })

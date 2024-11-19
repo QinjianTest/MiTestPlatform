@@ -1,2 +1,11 @@
-method,api_path,data,expected_success
-GET,/api/v1/customers/watch-lists,,"True"
+casename,method,api_path,data,expected_success
+"获取热门品种",GET,/api/v1/customers/watch-lists,,"True"
+"获取账户",GET,/api/v1/funds/balances,,"True"
+"获取身份验证状态",GET,/api/v1/customers/accounts/verify-status,,"True"
+"获取证件状态",GET,/api/v2/customers/agreement,,"True"
+"获取热门品种",GET,/api/v1/cms/instruments/popular,,"True"
+"获取提醒列表",GET,/api/v1/customers/reminder/list,,"True"
+"获取品种价格",GET,/api/v1/instruments/quotations/all?symbols=XAUUSD,,"True"
+"获取身份明细",GET,/api/v1/customers/details/more,,"True"
+"获取问卷",GET,/api/v1/customers/questionnaires/check,,"True"
+"获取用户状态",GET,/api/v1/customers/status,,"True"

@@ -34,5 +34,6 @@ MiTestPlatform：Django测试平台
     ```  
 
 ## 配置
-1. 配置文件在根目录的.env文件
-2. 可以使用.env.bak参考配置
+1. 配置文件在根目录的config.yml文件
+2. 可以使用config.yml.bak参考配置
+3. 用例放在cases/test_cases.csv里面

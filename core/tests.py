@@ -2,30 +2,23 @@
 import requests
 import csv
 import json
-import os
-from dotenv import load_dotenv
 from .login import login
-
-# 加载 .env 文件中的环境变量
-load_dotenv()
+from core.config_loader import BASE_URL, EMAIL, PASSWORD
 
 def watch_lists(file_path):
-    base_url = os.getenv('BASE_URL')
-
     with open(file_path, newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
+            casename = row['casename']
             method = row['method']
             api_path = row['api_path']
             data = json.loads(row['data']) if row['data'] else None
             expected_success = row['expected_success'].lower() == 'true'
 
-            url = base_url + api_path
+            url = BASE_URL + api_path
 
             # 登录并获取 remember-me-token
-            email = os.getenv('EMAIL')
-            password = os.getenv('PASSWORD')
-            remember_me_token = login(email, password)
+            remember_me_token = login(EMAIL, PASSWORD)
 
             if isinstance(remember_me_token, dict) and 'error' in remember_me_token:
                 print(f"Login failed: {remember_me_token['error']}")
@@ -43,7 +36,7 @@ def watch_lists(file_path):
                 'Locale': 'zh-TW',
                 'Mode': 'REAL_MONEY',
                 'Priority': 'u=1, i',
-                'Referer': base_url,
+                'Referer': BASE_URL,
                 'Remember-Me-Token': remember_me_token,
                 'Sec-CH-UA': '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
                 'Sec-CH-UA-Mobile': '?0',
@@ -69,12 +62,9 @@ def watch_lists(file_path):
 
                 # 断言 success 字段
                 assert response_data.get('success') == expected_success, \
-                    f"Assertion failed for {api_path}: expected {expected_success}, got {response_data.get('success')}"
-                print(f"Test for {api_path} passed.")
+                    f"Assertion failed for {casename}: expected {expected_success}, got {response_data.get('success')}"
+                print(f"Test for {casename} passed.")
             except requests.exceptions.RequestException as e:
-                print(f"Request failed for {api_path}: {str(e)}")
+                print(f"Request failed for {casename}: {str(e)}")
             except AssertionError as e:
                 print(str(e))
-
-if __name__ == "__main__":
-    execute_test_cases_from_csv('test_cases.csv')
