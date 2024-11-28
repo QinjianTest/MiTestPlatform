@@ -1,8 +1,8 @@
-# core/logic/tests.py
 import requests
 import csv
 import json
 import logging
+import uuid  # 导入uuid库
 from core.logic.login import login
 from core.config.config_loader import BASE_URL, EMAIL, PASSWORD
 from core.config.logger_setup import setup_logging
@@ -11,7 +11,6 @@ from core.config.logger_setup import setup_logging
 setup_logging()
 
 def watch_lists(file_path):
-    # 从这里开始使用 logging 记录日志
     logging.info("Starting watch_lists test execution")
     with open(file_path, newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile)
@@ -24,11 +23,14 @@ def watch_lists(file_path):
 
             url = BASE_URL + api_path
 
+            # 为每个测试用例生成唯一的UUID
+            test_uuid = str(uuid.uuid4())
+
             # 登录并获取 remember-me-token
             remember_me_token = login(EMAIL, PASSWORD)
 
             if isinstance(remember_me_token, dict) and 'error' in remember_me_token:
-                logging.error(f"Login failed: {remember_me_token['error']}")
+                logging.error(f"[{test_uuid}] Login failed: {remember_me_token['error']}")
                 continue
 
             headers = {
@@ -58,7 +60,7 @@ def watch_lists(file_path):
             }
 
             try:
-                logging.info(f"Executing {method} request for {casename} with URL: {url}")
+                logging.info(f"[{test_uuid}] Executing {method} request for {casename} with URL: {url}")
                 if method.upper() == 'GET':
                     response = requests.get(url, headers=headers)
                 elif method.upper() == 'POST':
@@ -71,8 +73,8 @@ def watch_lists(file_path):
                 # 断言 success 字段
                 assert response_data.get('success') == expected_success, \
                     f"Assertion failed for {casename}: expected {expected_success}, got {response_data.get('success')}"
-                logging.info(f"Test for {casename} passed.")
+                logging.info(f"[{test_uuid}] Test for {casename} passed.")
             except requests.exceptions.RequestException as e:
-                logging.error(f"Request failed for {casename}: {str(e)}")
+                logging.error(f"[{test_uuid}] Request failed for {casename}: {str(e)}")
             except AssertionError as e:
-                logging.error(str(e))
+                logging.error(f"[{test_uuid}] {str(e)}")
