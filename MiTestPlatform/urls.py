@@ -6,6 +6,6 @@ from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', RedirectView.as_view(url='/example/', permanent=False)),
+    path('', RedirectView.as_view(url='/test_cases/', permanent=False)),
     path('', include('core.urls')),  # 包含 core 应用的路由
 ]

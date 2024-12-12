@@ -38,5 +38,5 @@ MiTestPlatform：Django测试平台
     ```bash
    ENV=production python run_test.py
    ```
-2. 日志配置放在core/logger_setup.py里面，日志生成在根目录的/logs
+2. 日志配置放在core/logger_setup.py里面，日志生成在根目录的/logs，查询日志通过UUID定位
 3. 用例放在cases/test_cases.csv里面

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Case Detail</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f0f2f5;
+        }
+        .detail {
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        .detail:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            margin: 10px 0;
+            font-size: 16px;
+            color: #555;
+        }
+        strong {
+            color: #333;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        a:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="detail">
+        <h1>{{ test_case.casename }}</h1>
+        <p><strong>Method:</strong> {{ test_case.method }}</p>
+        <p><strong>API Path:</strong> {{ test_case.api_path }}</p>
+        <p><strong>Data:</strong> {{ test_case.data }}</p>
+        <p><strong>Expected Success:</strong> {{ test_case.expected_success }}</p>
+        <a href="{% url 'list_test_cases' %}">Back to List</a>
+    </div>
+</body>
+</html>
+<!-- Path: core/templates/core/test_case_detail.html -->

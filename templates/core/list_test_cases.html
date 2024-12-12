@@ -1,0 +1,64 @@
+<!-- Path: /templates/core/list_test_cases.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Cases</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        table {
+            width: 50%; /* 控制表格宽度为80% */
+            margin: 20px 0; /* 仅设置上下边距 */
+            border-collapse: collapse;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+            border-radius: 5px; /* 添加圆角 */
+            overflow: hidden; /* 隐藏溢出内容 */
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px 15px; /* 增加内边距 */
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        a {
+            text-decoration: none;
+            color: #3498db;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Cases</h1>
+    <table>
+        <tr>
+            <th style="width: 20%;">Case Name</th> <!-- 设置特定列的宽度 -->
+            <th style="width: 10%;">Method</th>
+            <th style="width: 10%;">Actions</th>
+        </tr>
+        {% for case in test_cases %}
+        <tr>
+            <td>{{ case.casename }}</td>
+            <td>{{ case.method }}</td>
+            <td>
+                <a href="{% url 'test_case_detail' case.casename %}">View</a>
+                <!-- Add Edit and Delete functionality as needed -->
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+<!-- Path: core/templates/core/list_test_cases.html -->
