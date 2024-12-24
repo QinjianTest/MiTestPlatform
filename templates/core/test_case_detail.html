@@ -7,8 +7,8 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
-            padding: 0;
+            margin: 0;
+            padding: 20px;
             background-color: #f0f2f5;
         }
         .detail {
@@ -18,6 +18,8 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: box-shadow 0.3s ease;
+            margin: 0; /* Remove margin-top for top alignment */
+            position: relative;
         }
         .detail:hover {
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -35,29 +37,34 @@
         strong {
             color: #333;
         }
-        a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 15px;
-            background-color: #3498db;
+        .back-link {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 50px; /* Width for rectangle shape */
+            height: 28px; /* Height for rectangle shape */
+            background-color: #4CAF50;
             color: white;
-            border-radius: 5px;
+            border-radius: 5px; /* Small radius for rounded corners */
+            text-align: center;
+            line-height: 28px;
             text-decoration: none;
+            font-size: 20px;
             transition: background-color 0.3s ease;
         }
-        a:hover {
-            background-color: #2980b9;
+        .back-link:hover {
+            background-color: #4CAF50;
         }
     </style>
 </head>
 <body>
     <div class="detail">
+        <a href="{% url 'list_test_cases' %}" class="back-link">&#8592;</a> <!-- 使用左箭头符号 -->
         <h1>{{ test_case.casename }}</h1>
         <p><strong>Method:</strong> {{ test_case.method }}</p>
         <p><strong>API Path:</strong> {{ test_case.api_path }}</p>
         <p><strong>Data:</strong> {{ test_case.data }}</p>
         <p><strong>Expected Success:</strong> {{ test_case.expected_success }}</p>
-        <a href="{% url 'list_test_cases' %}">Back to List</a>
     </div>
 </body>
 </html>
