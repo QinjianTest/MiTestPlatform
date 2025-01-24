@@ -2,7 +2,7 @@ import requests
 import csv
 import json
 import logging
-import uuid  # 导入uuid库
+import uuid  # 导入UUID库
 from core.logic.login import login
 from core.config.config_loader import BASE_URL, EMAIL, PASSWORD
 from core.config.logger_setup import setup_logging

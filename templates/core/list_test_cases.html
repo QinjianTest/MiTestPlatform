@@ -1,4 +1,3 @@
-<!-- Path: /templates/core/list_test_cases.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,16 +11,16 @@
             background-color: #f4f4f9;
         }
         table {
-            width: 50%; /* 控制表格宽度为80% */
-            margin: 20px 0; /* 仅设置上下边距 */
+            width: 50%;
+            margin: 20px 0;
             border-collapse: collapse;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 添加阴影 */
-            border-radius: 5px; /* 添加圆角 */
-            overflow: hidden; /* 隐藏溢出内容 */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
         }
         th, td {
             border: 1px solid #ddd;
-            padding: 10px 15px; /* 增加内边距 */
+            padding: 10px 15px;
             text-align: center;
         }
         th {
@@ -31,22 +30,83 @@
         tr:nth-child(even) {
             background-color: #f2f2f2;
         }
-        a {
+        a, button {
             text-decoration: none;
             color: #3498db;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 16px;
         }
-        a:hover {
+        a:hover, button:hover {
             text-decoration: underline;
         }
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
     </style>
+    <script>
+        function executeTest(caseName, resultCell) {
+            // Simulate an API call to execute the test case
+            setTimeout(function() {
+                const success = Math.random() > 0.5; // Random success/failure
+                resultCell.innerHTML = `<span onclick="showModal('${success ? 'Success Log: Everything went well!' : 'Error Log: Something went wrong!'}')">${success ? 'Success' : 'Failure'}</span>`;
+                resultCell.style.color = success ? 'green' : 'red';
+            }, 1000);
+        }
+
+        function showModal(log) {
+            const modal = document.getElementById("logModal");
+            const modalContent = document.getElementById("modalContent");
+            modalContent.textContent = log;
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("logModal");
+            modal.style.display = "none";
+        }
+    </script>
 </head>
 <body>
     <h1>Test Cases</h1>
     <table>
         <tr>
-            <th style="width: 20%;">Case Name</th> <!-- 设置特定列的宽度 -->
+            <th style="width: 20%;">Case Name</th>
             <th style="width: 10%;">Method</th>
             <th style="width: 10%;">Actions</th>
+            <th style="width: 10%;">Execute</th>
+            <th style="width: 10%;">Result</th>
         </tr>
         {% for case in test_cases %}
         <tr>
@@ -54,11 +114,22 @@
             <td>{{ case.method }}</td>
             <td>
                 <a href="{% url 'test_case_detail' case.casename %}">View</a>
-                <!-- Add Edit and Delete functionality as needed -->
             </td>
+            <td>
+                <button onclick="executeTest('{{ case.casename }}', this.parentElement.nextElementSibling)">Run</button>
+            </td>
+            <td></td>
         </tr>
         {% endfor %}
     </table>
+
+    <!-- 模态框 -->
+    <div id="logModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p id="modalContent"></p>
+        </div>
+    </div>
 </body>
 </html>
 <!-- Path: core/templates/core/list_test_cases.html -->
